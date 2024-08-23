@@ -56,6 +56,7 @@ class GetStartedPage extends StatelessWidget {
                     height: 20,
                   ),
                   AppElevatedButton(
+                    width: 10000,
                     onPressed: () {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(

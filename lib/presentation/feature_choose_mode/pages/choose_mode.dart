@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
+import 'package:spotify_clone/presentation/feature_auth/pages/signup_signin.dart';
 import 'package:spotify_clone/presentation/feature_choose_mode/blocs/choose_mode_cubit.dart';
 
 import '../../../common/widgets/button/basic_elevated_button.dart';
@@ -56,29 +57,36 @@ class ChooseMode extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              BlocProvider.of<ThemeCubit>(context)
-                                  .changeTheme(ThemeMode.dark);
-                            },
-                            child: ClipOval(
-                              child: BackdropFilter(
-                                filter:
-                                    ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                child: Container(
-                                  height: 80,
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xff30393C)
-                                          .withOpacity(0.5),
-                                      shape: BoxShape.circle),
-                                  child: SvgPicture.asset(
-                                    AppVectors.moon,
-                                    fit: BoxFit.none,
+                          BlocBuilder<ThemeCubit, ThemeMode>(
+                            builder: (context, state) {
+                              return GestureDetector(
+                                onTap: () {
+                                  state == ThemeMode.dark
+                                      ? BlocProvider.of<ThemeCubit>(context)
+                                          .changeTheme(ThemeMode.light)
+                                      : BlocProvider.of<ThemeCubit>(context)
+                                          .changeTheme(ThemeMode.dark);
+                                },
+                                child: ClipOval(
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                        sigmaX: 10, sigmaY: 10),
+                                    child: Container(
+                                      height: 80,
+                                      width: 80,
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xff30393C)
+                                              .withOpacity(0.5),
+                                          shape: BoxShape.circle),
+                                      child:SvgPicture.asset(
+                                              AppVectors.moon,
+                                              fit: BoxFit.none,
+                                            ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
+                              );
+                            },
                           ),
                           const SizedBox(
                             height: 15,
@@ -97,30 +105,36 @@ class ChooseMode extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              BlocProvider.of<ThemeCubit>(context)
-                                  .changeTheme(ThemeMode.light);
-                              // context.read<ThemeCubit>().changeTheme(ThemeMode.light);
-                            },
-                            child: ClipOval(
-                              child: BackdropFilter(
-                                filter:
-                                    ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                child: Container(
-                                  height: 80,
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xff30393C)
-                                          .withOpacity(0.5),
-                                      shape: BoxShape.circle),
-                                  child: SvgPicture.asset(
-                                    AppVectors.sun,
-                                    fit: BoxFit.none,
+                          BlocBuilder<ThemeCubit, ThemeMode>(
+                            builder: (context, state) {
+                              return GestureDetector(
+                                onTap: () {
+                                  state == ThemeMode.dark
+                                      ? BlocProvider.of<ThemeCubit>(context)
+                                          .changeTheme(ThemeMode.light)
+                                      : BlocProvider.of<ThemeCubit>(context)
+                                          .changeTheme(ThemeMode.dark);
+                                },
+                                child: ClipOval(
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                        sigmaX: 10, sigmaY: 10),
+                                    child: Container(
+                                      height: 80,
+                                      width: 80,
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xff30393C)
+                                              .withOpacity(0.5),
+                                          shape: BoxShape.circle),
+                                      child: SvgPicture.asset(
+                                        AppVectors.sun,
+                                        fit: BoxFit.none,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
+                              );
+                            },
                           ),
                           const SizedBox(
                             height: 15,
@@ -138,9 +152,9 @@ class ChooseMode extends StatelessWidget {
                   ),
                   const SizedBox(height: 50),
                   AppElevatedButton(
+                    width: 10000,
                     onPressed: () {
-                       BlocProvider.of<ThemeCubit>(context)
-                          .changeTheme(ThemeMode.dark);
+                      Navigator.push(context, MaterialPageRoute(builder:  (context) => const SignUpSignIn(),));
                     },
                     title: 'Continue',
                   ),
