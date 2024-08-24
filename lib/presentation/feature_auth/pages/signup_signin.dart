@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_clone/common/widgets/extensions/is_dark_theme.dart';
 import 'package:spotify_clone/core/configs/assets/app_images.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
-import 'package:spotify_clone/core/configs/theme/app_colors.dart';
+import 'package:spotify_clone/presentation/feature_auth/pages/signup_page.dart';
+import 'package:spotify_clone/presentation/feature_auth/widgets/auth_appbar.dart';
 
 import '../../../common/widgets/button/basic_elevated_button.dart';
 
@@ -16,6 +16,7 @@ class SignUpSignIn extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
+          const AuthAppBar(),
           Align(
             alignment: Alignment.topRight,
             child: SvgPicture.asset(AppVectors.topPattern),
@@ -57,7 +58,14 @@ class SignUpSignIn extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AppElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignupPage(),
+                            ),
+                          );
+                        },
                         title: 'Register',
                         height: 55,
                       ),
@@ -66,7 +74,7 @@ class SignUpSignIn extends StatelessWidget {
                         child: Text(
                           'Sign In',
                           style: TextStyle(
-                            fontSize: 18,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: context.isDarkMode
                                   ? Colors.white
